@@ -247,15 +247,15 @@ class Timer(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @commands.group(name="timerset", aliases=["tset", "timersettings"])
+    @commands.group(name="timerset", aliases=["tmset", "timersettings"])
     @commands.bot_has_permissions(embed_links=True)
     @commands.mod_or_permissions(manage_messages=True)
-    async def tset(self, ctx: commands.Context):
+    async def tmset(self, ctx: commands.Context):
         """
         Customize settings for timers."""
 
-    @tset.command(name="emoji")
-    async def tset_emoji(self, ctx: commands.Context, emoji: EmojiConverter):
+    @tmset.command(name="emoji")
+    async def tmset_emoji(self, ctx: commands.Context, emoji: EmojiConverter):
         """
         Change the emoji used for timers.
 
@@ -265,9 +265,9 @@ class Timer(commands.Cog):
         await self.config.guild_from_id(ctx.guild.id).timer_settings.emoji.set(emoji)
         await ctx.tick()
 
-    @tset.command(name="maxduration", aliases=["duration", "md"])
+    @tmset.command(name="maxduration", aliases=["duration", "md"])
     @commands.is_owner()
-    async def tset_duration(self, ctx: commands.Context, duration: TimeConverter(True)):
+    async def tmset_duration(self, ctx: commands.Context, duration: TimeConverter(True)):
         """
         Change the max duration for timers.
 
@@ -277,8 +277,8 @@ class Timer(commands.Cog):
         await self.config.max_duration.set(duration.total_seconds())
         await ctx.tick()
 
-    @tset.command(name="notifyusers", aliases=["notify"])
-    async def tset_notify(self, ctx: commands.Context, notify: bool):
+    @tmset.command(name="notifyusers", aliases=["notify"])
+    async def tmset_notify(self, ctx: commands.Context, notify: bool):
         """
         Toggle whether or not to notify users when a timer ends.
 
@@ -288,8 +288,8 @@ class Timer(commands.Cog):
         await self.config.guild_from_id(ctx.guild.id).timer_settings.notify_users.set(notify)
         await ctx.tick()
 
-    @tset.command(name="showsettings", aliases=["ss", "showsetting", "show"])
-    async def tset_showsettings(self, ctx: commands.Context):
+    @tmset.command(name="showsettings", aliases=["ss", "showsetting", "show"])
+    async def tmset_showsettings(self, ctx: commands.Context):
         """
         See the configured settings for timers in your server."""
         settings = await self.get_guild_settings(ctx.guild.id)
